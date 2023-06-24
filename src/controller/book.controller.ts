@@ -1,12 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from '../service/app.service';
+import { BookStoreService } from '../service';
+import { BookStoreDto } from '../dto'
 
-@Controller()
+@Controller('books')
 export class BookController {
-    constructor(private readonly appService: AppService) { }
+    constructor(private readonly bookStoreService: BookStoreService) { }
 
     @Get()
-    getHello(): string {
-        return this.appService.getHello();
+    async get(): Promise<BookStoreDto[]> {
+        return await this.bookStoreService.getBookList();
     }
 }
